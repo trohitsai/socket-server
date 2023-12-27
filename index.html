@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
+</head>
+<body>
+  <ul id="files"></ul>
+  <script>
+    const socket = io('http://localhost:3003');
+    var files = document.getElementById('files');
+
+    socket.on('connected', () => {
+        console.log('Connected to sockets');
+        //socket.emit('subscribe.test');
+    });
+
+    socket.on('message', (filesResponse) => {
+        console.log('Got a message for socket server');
+        var element = document.createElement('li');
+        element.textContent = filesResponse;
+        files.appendChild(element);
+    });
+
+  </script>
+</body>
+</html>
