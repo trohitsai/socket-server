@@ -2,14 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Gdrive file manager</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
 </head>
 <body>
   <ul id="files"></ul>
+  <script type="text/javascript">
+    var files = document.getElementById('files');
+    var token = 'your token'
+    var apiUrl = "http://localhost:3000/v1/files";
+    fetch(apiUrl, {
+      headers: {'Authorization': token}
+    }).then(response => {
+      return response.json();
+    }).then(data => {
+        for (let i of data) {
+          fetch("http://localhost:3000/v1/files/permissions?fileid="+i.id, {
+            headers: {'Authorization': token}
+          }).then(response => {
+            return response.json();
+          }).then(data => {
+            let allowed_users=""
+            for (let permission of data.permissions) {
+              allowed_users=allowed_users+permission.emailAddress+",  "
+            }
+            var element = document.createElement('li');
+            element.textContent =  i.name + " : " + i.id + " : " + allowed_users;
+            files.appendChild(element);
+            console.log(data);
+          }).catch(err => {
+            // Do something for an error here
+          });
+        }
+      }).catch(err => {
+          // Do something for an error here
+    });
+  </script>
   <script>
     const socket = io('http://localhost:3003');
-    var files = document.getElementById('files');
 
     socket.on('connected', () => {
         console.log('Connected to sockets');
@@ -17,10 +47,34 @@
     });
 
     socket.on('message', (filesResponse) => {
-        console.log('Got a message for socket server');
-        var element = document.createElement('li');
-        element.textContent = filesResponse;
-        files.appendChild(element);
+      var files = document.getElementById('files');
+      var apiUrl = "http://localhost:3000/v1/files";
+      fetch(apiUrl, {
+        headers: {'Authorization': token}
+      }).then(response => {
+        return response.json();
+      }).then(data => {
+          for (let i of data) {
+            fetch("http://localhost:3000/v1/files/permissions?fileid="+i.id, {
+              headers: {'Authorization': token}
+            }).then(response => {
+              return response.json();
+            }).then(data => {
+              let allowed_users=""
+              for (let permission of data.permissions) {
+                allowed_users=allowed_users+permission.emailAddress+",  "
+              }
+              var element = document.createElement('li');
+              element.textContent =  i.name + " : " + i.id + " : " + allowed_users;
+              files.appendChild(element);
+              console.log(data);
+            }).catch(err => {
+              // Do something for an error here
+            });
+          }
+        }).catch(err => {
+            // Do something for an error here
+      });
     });
 
   </script>
