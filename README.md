@@ -50,7 +50,7 @@ brew install redis
 Run the socket server using the following command:
 
 ```bash
-npm app.js
+node app.js
 ```
 
 The server will start listening on the specified port and connect to the Redis channel. Clients can connect to the WebSocket server to receive real-time updates.
