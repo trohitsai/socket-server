@@ -60,7 +60,7 @@ In your frontend application, use a WebSocket library (e.g., Socket.IO) to conne
 
 ```javascript
 // Example frontend code using Socket.IO
-const socket = io('http://localhost:3000');
+const socket = io('http://localhost:3003');
 
 socket.on('eventFromServer', (data) => {
   // Handle the received event data
