@@ -29,13 +29,17 @@
             }
             var element = document.createElement('li');
             element.style.fontWeight = "bold";
-
             element.textContent =  i.name + ": " 
-            var element1 = document.createElement('p');
 
-            element1.textContent = i.id + ": " + allowed_users;
+            var element1 = document.createElement('p');
+            element1.textContent = i.id
+
+            var element2 = document.createElement('p');
+            element2.textContent = "SHARED USERS: "+ allowed_users;
+
             files.append(element);
             files.append(element1);
+            files.append(element2);
             console.log(data);
           }).catch(err => {
             // Do something for an error here
@@ -77,10 +81,14 @@
 
               element.textContent =  i.name + " : ";
               var element1 = document.createElement('p');
+              element1.textContent = i.id;
 
-              element1.textContent = i.id + ": " + allowed_users;
+              var element2 = document.createElement('p');
+              element2.textContent =  "SHARED USERS: "+allowed_users;
+
               files.append(element);
               files.append(element1);
+              files.append(element2);
               console.log(data);
             }).catch(err => {
               // Do something for an error here
