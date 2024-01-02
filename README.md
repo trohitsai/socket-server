@@ -36,6 +36,16 @@ Update the configuration settings in the config.js file to match your Redis serv
       url :"redis://localhost:6379"
   });
 ```
+
+Start the redis server in your local by running below command
+
+```bash
+redis-server
+```
+Incase redis is not installed run below command to install redis in your local machine
+```bash
+brew install redis
+```
 ## Usage
 Run the socket server using the following command:
 
