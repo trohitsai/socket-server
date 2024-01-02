@@ -36,21 +36,31 @@ Update the configuration settings in the config.js file to match your Redis serv
       url :"redis://localhost:6379"
   });
 ```
+
+Start the redis server in your local by running below command
+
+```bash
+redis-server
+```
+Incase redis is not installed run below command to install redis in your local machine
+```bash
+brew install redis
+```
 ## Usage
 Run the socket server using the following command:
 
 ```bash
-npm app.js
+node app.js
 ```
 
-The server will start listening on the specified port and connect to the Redis channel. Clients can connect to the WebSocket server to receive real-time updates.
+The server will start listening on the specified port and connect to the Redis channel. Clients can connect to the WebSocket server to receive real-time updates. **The default socket server configured here is 3003. The same needs to updated/used in your frontend integration**
 
 ## Frontend Integration
 In your frontend application, use a WebSocket library (e.g., Socket.IO) to connect to the server and listen for events. Example code snippet:
 
 ```javascript
 // Example frontend code using Socket.IO
-const socket = io('http://localhost:3000');
+const socket = io('http://localhost:3003');
 
 socket.on('eventFromServer', (data) => {
   // Handle the received event data
