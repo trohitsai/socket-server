@@ -6,6 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
 </head>
 <body>
+  <p> My google drive file details </p> 
   <ul id="files"></ul>
   <script type="text/javascript">
     var files = document.getElementById('files');
@@ -27,8 +28,14 @@
               allowed_users=allowed_users+permission.emailAddress+",  "
             }
             var element = document.createElement('li');
-            element.textContent =  i.name + " : " + i.id + " : " + allowed_users;
-            files.appendChild(element);
+            element.style.fontWeight = "bold";
+
+            element.textContent =  i.name + ": " 
+            var element1 = document.createElement('p');
+
+            element1.textContent = i.id + ": " + allowed_users;
+            files.append(element);
+            files.append(element1);
             console.log(data);
           }).catch(err => {
             // Do something for an error here
@@ -48,6 +55,7 @@
 
     socket.on('message', (filesResponse) => {
       var files = document.getElementById('files');
+      document.getElementById('files').innerHTML='';
       var apiUrl = "http://localhost:3000/v1/files";
       fetch(apiUrl, {
         headers: {'Authorization': token}
@@ -65,8 +73,14 @@
                 allowed_users=allowed_users+permission.emailAddress+",  "
               }
               var element = document.createElement('li');
-              element.textContent =  i.name + " : " + i.id + " : " + allowed_users;
-              files.appendChild(element);
+              element.style.fontWeight = "bold";
+
+              element.textContent =  i.name + " : ";
+              var element1 = document.createElement('p');
+
+              element1.textContent = i.id + ": " + allowed_users;
+              files.append(element);
+              files.append(element1);
               console.log(data);
             }).catch(err => {
               // Do something for an error here
